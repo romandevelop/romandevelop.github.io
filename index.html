@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="https://fonts.googleapis.com/css?family=Mansalva&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+</head>
+
+<body class="black" style="font-family: 'Mansalva', cursive;"> 
+  <main>
+    <div class="row">
+      <div class="col l3 " v-for="x in results">
+        <div class="card-panel center" >         <!-- <h4 class="center">{{x.title}}</h4>-->
+                <img :src="url_img + x.poster_path" height="250" class=" z-depth-3">
+                <p>
+                <!--  {{x.overview.substring(0,100)}}-->
+                {{x.title}}
+                </p>
+          
+        </div>   
+       
+          </div>
+
+    </div>
+  </main>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<script>
+  new Vue({
+    el:'main',
+    data:{
+      url:'https://api.themoviedb.org/3/movie/popular?api_key=7e38bf7d7727f2c0ac63b558261d8d19&language=es-ES&page=1',
+      url_img:'https://image.tmdb.org/t/p/w500',
+      movies:{},
+      results:[]
+    },
+    created(){
+      this.carga();
+    },
+    mounted(){
+    //  this.carga();
+    },
+    methods:{
+      carga : async function(){
+        this.movies = await axios.get(this.url);
+        this.results = this.movies.data.results;
+        //console.log(x.data);
+      }
+    }
+  });
+</script>
+    
+
+
+      
+</body>
+</html>
